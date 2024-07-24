@@ -1,0 +1,17 @@
+/*------------------------------------*\
+  Components > Pagination
+\*------------------------------------*/
+
+.c-pagination {
+  margin-top: $space-32;
+  margin-bottom: $space-32;
+
+  @include mq($from: desktop) {
+    margin-top: $space-40;
+    margin-bottom: $space-40;
+  }
+
+  &--count-0 {
+    display: none;
+  }
+}

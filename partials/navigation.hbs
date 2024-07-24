@@ -1,0 +1,18 @@
+{{#if isSecondary}}
+  <li class='c-nav__item'>
+    {{#link href="/" class="c-nav__link" activeClass="c-nav__link--current"}}Home{{/link}}
+  </li>
+{{/if}}
+{{#match isDrawer "=" "drawer"}}
+{{#foreach navigation}}
+  <li class='c-nav__item c-header-mobile__nav--item--container'>
+    <a href='{{ url absolute='true' }}' class='c-nav__link c-header-mobile__nav--item'>{{ label }}</a>
+  </li>
+{{/foreach}}
+{{else}}
+{{#foreach navigation}}
+  <li class='c-nav__item'>
+    <a href='{{ url absolute='true' }}' class='c-nav__link {{#if current}} c-nav__link--current {{/if}}'>{{ label }}</a>
+  </li>
+{{/foreach}}
+{{/match}}

@@ -1,0 +1,638 @@
+{{!< default}} {{#contentFor 'title' }}{{ meta_title }}{{/contentFor}} {{!-- Show the custom homepage content --}}
+  {{#get "pages" filter="slug:notice" limit="1" order="published_at desc" }} {{#foreach pages}} <div
+  class="c-home-mobile__notice">
+  <div class="o-container">
+    <a class="hover:underline" href="{{url}}">{{title}}</a>
+  </div>
+  </div>
+  {{/foreach}}
+  {{/get}}
+
+  {{#get "posts" filter="featured:true" include="tags,authors" order="published_at desc" limit="9"}}
+  <div class="c-feature-box">
+    <div class="c-feature-box__col c-feature-box__col--1">
+      <div class="c-feature-box__grid">
+        {{#foreach posts from="1" to="1"}}
+        {{> post-card size="large"}}
+        {{/foreach}}
+      </div>
+    </div>
+
+    <div class="c-feature-box__col c-feature-box__col--2">
+      <div class="c-post-grid">
+        <div class="js-grid">
+          {{#foreach posts from="2" to="3"}}
+          {{> post-card}}
+          {{/foreach}}
+        </div>
+      </div>
+    </div>
+
+    <div class="c-feature-box__col c-feature-box__col--3">
+      <div class="c-feature-box__title">
+        EDITOR'S PICK
+      </div>
+      <div class="c-feature-box__grid">
+        {{#foreach posts from="4"}}
+        {{> post-card size="small"}}
+        {{/foreach}}
+      </div>
+    </div>
+
+  </div>
+  {{/get}}
+
+
+  {{#unless @member}}
+  {{#match @custom.stibee_status "on"}}
+  <div class="c-subscribe__main--outer">
+    <div class="o-grid">
+      <div class="o-grid__col o-grid__col--4-4-s">
+        <div class="c-subscribe__main">
+          <div class="c-subscribe__main--header">
+            <h2 class="c-subscribe__main--title">{{ @site.subscription_form_title }}</h2>
+            <p class="c-subscribe__main--desc">{{ @custom.newsletter_form_description }}</p>
+          </div>
+          <div id="stb_subscribe">
+            <div class="stb_header"> </div>
+            <form action="{{ @custom.stibee_request_url }}" method="POST" target="_blank" accept-charset="utf-8"
+              class="stb_form" name="stb_subscribe_form" id="stb_subscribe_form" novalidate="">
+              <div class="stb_form_user_info">
+                <fieldset class="stb_form_set">
+                  <div class="stb_email">
+                    <label for="stb_email" class="u-hidden-visually">이메일 주소</label>
+                    <input type="email" class="stb_form_set_input stb_email_input" id="stb_email" name="email"
+                      required="required" placeholder="{{t 'Your email address' }}" style="height: 42px;">
+                    <div class="stb_form_msg_error" id="stb_email_error"></div>
+                  </div>
+                </fieldset>
+                <fieldset class="stb_form_set">
+                  <div class="stb_nickname">
+                    <label for="stb_nickname" class="u-hidden-visually">닉네임</label>
+                    <input type="text" class="stb_form_set_input stb_nickname" id="stb_nickname" name="nickname"
+                      required="required" placeholder="{{t 'Your nickname' }}" style="height: 42px;">
+                    <div class="stb_form_msg_error" id="stb_nickname_error"></div>
+                  </div>
+                </fieldset>
+                <fieldset class="stb_form_set_submit">
+                  <button type="submit" class="stb_form_submit_button stb_submit_button_big_screen"
+                    id="stb_form_submit_button">{{
+                    @custom.newsletter_form_button_text }}</button>
+                </fieldset>
+              </div>
+              <div class="stb_form_policies">
+                <div class="stb_form_policy stb_form_policy1">
+                  <label>
+                    <input type="checkbox" id="stb_policy" value="stb_policy_true">
+                    <button id="stb_form_modal_open" data-modal="stb_form_policy_modal" required="required"
+                      class="stb_form_modal_open_btn" type="button">(필수)개인정보 수집 및 이용에 동의합니다.</button>
+                  </label>
+                  <div class="stb_form_msg_error" id="stb_policy_error"></div>
+                  <div class="stb_form_modal stb_form_policy_text blind" id="stb_form_policy_modal">
+                    <div class="stb_form_modal_body">
+                      <h1 class="stb_form_modal_title">개인정보 수집 및 이용</h1>
+                      <p class="stb_form_modal_text">
+                        {{@custom.subscribe_policy1}}
+                      </p>
+                      <div class="stb_form_modal_btn">
+                        <button id="stb_form_modal_close" class="stb_form_modal_close_btn"
+                          data-modal="stb_form_policy_modal" type="button">닫기</button>
+                      </div>
+                    </div>
+                    <div class="stb_form_modal_bg" id="stb_form_modal_bg"></div>
+                  </div>
+                </div>
+                <div class="stb_form_policy stb_form_policy2"> <label> <input type="checkbox" id="stb_ad_agreement"
+                      value="stb_ad_agreement_true" required="required"> <button id="stb_form_ad_modal_open"
+                      data-modal="stb_form_ad_agreemnet_modal" class="stb_form_modal_open_btn" type="button"
+                      required="required">(필수)광고성 정보 수신에 동의합니다.</button> </label>
+                  <div class="stb_form_msg_error" id="stb_ad_agreement_error"></div>
+
+                  <div class="stb_form_modal stb_form_policy_text blind" id="stb_form_ad_agreemnet_modal">
+                    <div class="stb_form_modal_body">
+                      <h1 class="stb_form_modal_title">광고성 정보 수신</h1>
+                      <p class="stb_form_modal_text">
+                        {{@custom.subscribe_policy2}}
+                      </p>
+                      <div class="stb_form_modal_btn"> <button id="stb_form_ad_modal_close"
+                          class="stb_form_modal_close_btn" data-modal="stb_form_ad_agreemnet_modal"
+                          type="button">닫기</button> </div>
+                    </div>
+                    <div class="stb_form_modal_bg" id="stb_form_ad_modal_bg"></div>
+                  </div>
+                </div>
+              </div>
+              <fieldset class="stb_form_set_submit">
+                <button type="submit" class="stb_form_submit_button  stb_submit_button_small_screen"
+                  id="stb_form_submit_button">{{
+                  @custom.newsletter_form_button_text }}</button>
+              </fieldset>
+              <div class="stb_form_result" id="stb_form_result">
+              </div>
+            </form>
+          </div>
+          <script src="https://www.google.com/recaptcha/api.js" async="" defer=""></script>
+          <script type="text/javascript"
+            src="https://s3.ap-northeast-2.amazonaws.com/resource.stibee.com/subscribe/stb_subscribe_form.js"></script>
+        </div>
+      </div>
+    </div>
+    {{/match}}
+    {{#match @custom.stibee_status "off"}}
+    <div class="c-subscribe__main--outer">
+      <div class="o-grid">
+        <div class="o-grid__col o-grid__col--4-4-s">
+          <div class="c-subscribe__main">
+            <div class="c-subscribe__main--header">
+              <h2 class="c-subscribe__main--title">{{ @site.subscription_form_title }}</h2>
+              <p class="c-subscribe__main--desc">{{ @custom.newsletter_form_description }}</p>
+            </div>
+            <div class="c-subscribe__main--form-container">
+              <form data-members-form="subscribe" class="c-subscribe__main--form">
+                <label for="subscribe-home-intro" class="u-hidden-visually">{{t 'Your email address' }}</label>
+                <input type="email" name="email" class="c-subscribe__main--form-input stb_email_input" id="subscribe-home-intro"
+                  placeholder="{{t 'Your email address' }}" required data-members-email style="height: 42px;">
+                <button type="submit" class="c-subscribe__main--form-submit">{{ @custom.newsletter_form_button_text
+                  }}</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{/match}}
+    {{/unless}}
+      {{!-- 피처 콘텐츠 영역 --}}
+    <section class="c-home-top-side">
+      {{#if @site.visible_feature_content_section}}
+        <div class="c-home-top-side__wrap">
+          <div class="c-home-top-side__title">
+          {{#if @site.feature_content_section_title}}
+            {{@site.feature_content_section_title}}
+          {{else}}
+            {{#if @site.feature_content_section_sort_type}}
+              {{!-- 디자인 커스텀 --}}
+              {{#match @site.feature_content_section_sort_type "=" "poplularest"}}
+              인기 있는 콘텐츠
+              {{else}}
+              최신 콘텐츠
+              {{/match}}
+            {{else}}
+              최신 콘텐츠
+            {{/if}}
+          {{/if}}
+          </div>
+
+        {{#if @site.feature_content_section_sort_type}}
+        {{!--  --}}
+        {{#match @site.feature_content_section_sort_type "=" "poplularest"}}
+          {{#get "posts" filter="published_at:>=now-14d" include="tags,authors" limit="4" order="view_count desc"}}
+          {{#if posts}}
+          <div class="c-home-top-side__posts--wrap">
+            <div class="c-home-top-side__posts">
+              {{#foreach posts}}
+              {{#if @first}}
+                {{> post-card size="feature-first" }}
+                {{else}}
+                {{> post-card size="feature" }}
+              {{/if}}
+              {{/foreach}}
+            </div>
+          </div>
+          {{/if}}
+          {{/get}}
+        {{else}}
+          {{#get "posts" include="tags,authors" limit="4" order="published_at desc"}}
+          {{#if posts}}
+          <div class="c-home-top-side__posts--wrap">
+            <div class="c-home-top-side__posts">
+              {{#foreach posts}}
+              {{#if @first}}
+                {{> post-card size="feature-first" }}
+                {{else}}
+                {{> post-card size="feature" }}
+              {{/if}}
+              {{/foreach}}
+            </div>
+          </div>
+          {{/if}}
+          {{/get}}
+        {{/match}}
+        {{else}}
+          {{#get "posts" include="tags,authors" limit="5" order="published_at desc"}}
+          {{#if posts}}
+          <div class="c-home-top-side__posts--wrap">
+            <div class="c-home-top-side__posts">
+              {{#foreach posts}}
+                {{> post-card cardFormat="small" }}
+              {{/foreach}}
+            </div>
+          </div>
+          {{/if}}
+          {{/get}}
+        {{/if}}
+        </div>
+      {{/if}}
+      </section>
+
+
+{{#if @custom.tag_slugs_for_home_sections}}
+    {{#get "tags" filter="slug:[{{@custom.tag_slugs_for_home_sections}}]"}}
+    {{#if tags}}
+    {{#foreach tags}}
+    <div
+      class="c-archive-box__outer{{#if @first}} c-archive-box__outer--first{{/if}}{{#if @last}} c-archive-box__outer--last{{/if}}">
+      <div class="o-grid">
+        <div class="o-grid__col o-grid__col--4-4-s">
+          <div class="c-archive-box">
+            <div class="c-archive-box__header">
+              <div class="c-archive-box__title">
+                <a href="{{url}}">{{name}}</a>
+              </div>
+              <div class="c-archive-box__action">
+                <a href="{{url}}" class="c-archive-box__action--link">
+                  <span>전체보기</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <div class="c-archive-box__main">
+              {{#get "posts" filter="tags:{{slug}}" include="tags,authors" limit="4" order="published_at desc" as
+              |posts|}}
+              {{#if posts}}
+
+              <div class="c-post-grid">
+                <div class="js-grid">
+                  {{#foreach posts}}
+                  {{> post-card size="category"}}
+                  {{/foreach}}
+                </div>
+              </div>
+              {{/if}}
+              {{/get}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{/foreach}}
+    {{/if}}
+    {{/get}}
+    {{/if}}
+
+    {{!-- {{> shop-slide }} --}}
+
+    {{#if @site.home_visible_shop_section}}
+    <div class="c-home-products-carousel">
+      <div class="o-grid">
+        <div class="o-grid__col o-grid__col--full">
+          {{> common/products/carousel-section which="home" nav="true" title=@site.shop_section_title }}
+        </div>
+      </div>
+    </div>
+    {{/if}}
+
+
+    {{!-- 프로모션 영역 --}}
+    <div class="c-home__promotion--container bg-accent">
+      <div class="c-home__promotion">
+        <div class="c-home__promotion--content">
+          <div class="c-home__promotion--main">{{ @custom.promotion_text_main }}</div>
+          <div class="c-home__promotion--sub">{{ @custom.promotion_text_sub }}</div>
+        </div>
+        <div class="c-home__promotion--action">
+          {{#link href=@custom.promotion_button_url class="c-home__promotion--link"}}{{ @custom.promotion_button_text
+          }}{{/link}}
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+    <html>
+
+    <head>
+      <style>
+        #stb_subscribe * {
+          margin: 0;
+          padding: 0;
+          font-size: 14px;
+          border: 0;
+          color: #333;
+          box-sizing: border-box;
+        }
+
+
+        #stb_subscribe {
+          width: 60%;
+          margin: 0;
+          box-sizing: border-box;
+          margin-bottom: 4%;
+        }
+
+        @media (max-width: 1023px) {
+          #stb_subscribe {
+            width: 100%;
+            margin: 0 auto;
+            box-sizing: border-box;
+          }
+        }
+
+        #stb_subscribe .stb_header {
+          width: 100%;
+          overflow: hidden;
+          text-align: left;
+          padding-bottom: 40px;
+        }
+
+
+        #stb_subscribe .stb_header img {
+          display: inline-block;
+          max-width: 100%;
+          height: auto;
+        }
+
+
+        #stb_subscribe .stb_form_title {
+          font-size: 24px;
+          padding-bottom: 30px;
+          color: #333;
+          line-break: anywhere;
+        }
+
+
+        #stb_subscribe .stb_form_description {
+          padding-bottom: 40px;
+          font-size: 14px;
+          line-height: 1.71;
+          color: #333;
+          line-break: anywhere;
+        }
+
+        #stb_subscribe .stb_form_description a {
+          text-decoration: underline;
+          color: #3e81f6;
+        }
+
+
+        #stb_subscribe .stb_form_set {
+          padding-bottom: 20px;
+          overflow: hidden;
+          position: relative;
+        }
+
+        #stb_subscribe .stb_form_set .stb_form_set_label {
+          display: flex;
+        }
+
+
+        #stb_subscribe .stb_email {
+          width: 270px;
+          margin-right: 10px;
+        }
+
+        @media (max-width: 1023px) {
+          #stb_subscribe .stb_email {
+            width: 100%;
+            margin-right: 0;
+          }
+        }
+
+        #stb_subscribe .stb_nickname {
+          width: 150px;
+          margin-right: 10px;
+        }
+
+        @media (max-width: 1023px) {
+          #stb_subscribe .stb_nickname {
+            width: 100%;
+            margin-right: 0;
+          }
+        }
+
+        #stb_subscribe .stb_form_user_info {
+          display: flex;
+        }
+
+        @media (max-width: 1023px) {
+          #stb_subscribe .stb_form_user_info {
+            display: block;
+          }
+        }
+
+        #stb_subscribe .stb_form_set .stb_form_set_input {
+          display: block;
+          width: 100%;
+          padding: 9px 10px;
+          border: 1px solid #000;
+          border-radius: 5px;
+          background-color: #e5d9cc;
+          font-size: 14px;
+          font-weight: 700;
+        }
+
+
+        #stb_subscribe .stb_form_msg_error {
+          display: none;
+          color: #f95a1f;
+          font-size: 12px;
+          /* position: absolute; */
+          /* left: 0; */
+          /* bottom: 0; */
+        }
+
+        #stb_subscribe .stb_form_policies {
+          display: flex;
+        }
+
+        @media (max-width: 1130px) {
+          #stb_subscribe .stb_form_policies {
+            display: block;
+          }
+        }
+
+        #stb_subscribe .stb_form_policy {
+          position: relative;
+          padding-bottom: 5px;
+        }
+
+        #stb_subscribe .stb_form_policy1 {
+          width: 270px;
+          margin-right: 10px;
+        }
+
+        #stb_subscribe .stb_form_policy.odd {
+          position: relative;
+          padding-bottom: 10px;
+        }
+
+
+        #stb_subscribe .stb_form_policy * {
+          vertical-align: top;
+        }
+
+
+        #stb_subscribe .stb_form_policy label input {
+          width: 16px;
+          height: 16px;
+        }
+
+
+        #stb_subscribe .stb_form_policy label button {
+          color: #333;
+          cursor: pointer;
+          background: none;
+          text-decoration: underline;
+          text-decoration-color: #333;
+        }
+
+        #stb_subscribe .stb_form_modal {
+          position: fixed;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          z-index: 100000;
+        }
+
+        #stb_subscribe .stb_form_modal.blind {
+          display: none !important;
+        }
+
+        #stb_subscribe .stb_form_modal_bg {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background: #333;
+          opacity: .5;
+          z-index: 1;
+        }
+
+        #stb_subscribe .stb_form_modal_body {
+          background: #fff;
+          width: 94%;
+          max-width: 500px;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          z-index: 10;
+        }
+
+        #stb_subscribe .stb_form_modal_title {
+          font-size: 18px;
+          padding: 30px;
+          color: #333;
+        }
+
+        #stb_subscribe .stb_form_modal_text {
+          font-size: 14px;
+          line-height: 1.71;
+          color: #333;
+          margin: 0 30px;
+          max-height: 200px;
+          overflow-y: auto;
+        }
+
+        #stb_subscribe .stb_form_modal_btn {
+          padding: 30px;
+          text-align: center;
+        }
+
+        #stb_subscribe .stb_form_modal_btn button {
+          width: 100px;
+          height: 40px;
+          line-height: 40px;
+          font-size: 14px;
+          background: #e6e6eb;
+          color: #333;
+          cursor: pointer;
+        }
+
+        #stb_subscribe .stb_form_submit_button {
+          height: 42px;
+          width: fit-content;
+          padding: 0 24px;
+          background-color: rgba(14, 21, 14, 0.3);
+          border-radius: 5px;
+          font-size: 14px;
+          font-weight: 700;
+          cursor: pointer;
+          transition: all ease 0.3s;
+          border-color: #05150e;
+
+          &:hover {
+            background-color: #000;
+            border-color: #000;
+            color: #fff;
+          }
+        }
+
+        @media (max-width: 1023px) {
+          #stb_subscribe .stb_form_submit_button {
+            width: fit-content;
+            box-sizing: border-box;
+          }
+        }
+
+        #stb_subscribe .stb_submit_button_small_screen {
+          display: none;
+        }
+
+        @media (max-width: 1240px) {
+          #stb_subscribe .stb_submit_button_small_screen {
+            display: block;
+          }
+        }
+
+        @media (max-width: 1240px) {
+          #stb_subscribe .stb_submit_button_big_screen {
+            display: none;
+          }
+        }
+
+        #stb_subscribe .stb_form_submit_button.disabled {
+          pointer-events: none;
+          opacity: .5;
+        }
+
+        #stb_subscribe.theme-page .stb_form_submit_button {
+          width: 100%;
+        }
+
+
+
+        #stb_subscribe .stb_form_result {
+          display: none;
+          padding: 0 0 0 0;
+          text-align: left;
+        }
+
+
+        #stb_subscribe .stb_form_result p {
+          line-height: 1.4;
+          font-size: 12px;
+        }
+
+
+        #stb_subscribe .stb_form_result.fail p {
+          color: #f95a1f;
+        }
+
+
+        #stb_subscribe .stb_form_result.success p {
+          color: #3e81f6;
+        }
+      </style>
+    </head>
+
+    </html>
+
+
+    {{!-- {{> home/all-posts-link }} --}
+
+    {{!-- {{> subscribe-box }} --}}

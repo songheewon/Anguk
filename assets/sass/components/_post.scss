@@ -1,0 +1,28 @@
+/*------------------------------------*\
+  Components > Post
+\*------------------------------------*/
+
+.c-post {
+  margin: auto;
+  max-width: 730px;
+
+  > * + * {
+    margin-top: $space-32;
+  }
+}
+
+.c-post-grid {
+  .js-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 46px 20px;
+
+    @include mq($from: 768px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include mq($from: 1024px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+}
