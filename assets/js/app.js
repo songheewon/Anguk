@@ -161,90 +161,6 @@ $load_posts_button.click(function(e) {
     })
   });
   
-  
-  const shopSwiper = new Swiper('.c-shop-carousel__swiper', {
-    // If we need pagination
-    pagination: {
-      el: '.c-shop-carousel .swiper-pagination',
-      enabled: true
-    },
-  
-    // Navigation arrows
-    navigation: {
-      nextEl: '.c-shop-carousel .swiper-button-next',
-      prevEl: '.c-shop-carousel .swiper-button-prev',
-      enabled: false
-    },
-  
-    // And if we need scrollbar
-    scrollbar: {
-      el: '.c-shop-carousel .swiper-scrollbar',
-    },
-  
-    slidesPerView: 2,
-    spaceBetween: 20,
-    grid: {
-      rows: 2
-    },
-  
-    // Responsive breakpoints
-    breakpoints: {
-      // when window width is >= 320px
-      480: {
-        slidesPerView: 2,
-        spaceBetween: 20,
-        grid: {
-          rows: 2
-        },
-        navigation: {
-          enabled: false
-        },
-        pagination: {
-          enabled: true
-        }
-      },
-      768: {
-        slidesPerView: 2,
-        spaceBetween: 40,
-        grid: {
-          rows: 2
-        },
-        navigation: {
-          enabled: false
-        },
-        pagination: {
-          enabled: true
-        }
-      },
-      1024: {
-        slidesPerView: 4,
-        spaceBetween: 26,
-        grid: {
-          rows: 1
-        },
-        navigation: {
-          enabled: false
-        },
-        pagination: {
-          enabled: false
-        }
-      },
-      1240: {
-        slidesPerView: 4,
-        spaceBetween: 26,
-        grid: {
-          rows: 1
-        },
-        navigation: {
-          enabled: true
-        },
-        pagination: {
-          enabled: false
-        }
-      }
-    }
-  });
-  
   const shop_hero = new Swiper('.c-shop-featured__carousel--swiper', {
     // Navigation arrows
     navigation: {
@@ -256,7 +172,7 @@ $load_posts_button.click(function(e) {
     spaceBetween: 40,
   });
   
-  history.scrollRestoration = "manual"
+  history.scrollRestoration = "auto"
   
   /**
    * Products Carousel

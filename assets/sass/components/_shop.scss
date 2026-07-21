@@ -2,7 +2,11 @@
   padding-top: 46px;
 
   .o-grid {
-    @include mobile { max-width: 390px; }
+    @include mobile { 
+      max-width: 100%;
+      padding-left: 16px;
+      padding-right: 16px;
+    }
     @include tablet { max-width: 768px; }
     @include desktop {
       max-width: 1064px;
@@ -61,42 +65,115 @@
 
     &__swiper {
       overflow: hidden;
+      padding-bottom: 40px; // 페이지네이션 공간 확보
+      padding-left: 3px;
+      padding-right: 3px;
+
+      @include desktop {
+        padding-bottom: 16px;
+      }
 
       .swiper-wrapper {
-        height: 448px;
+        height: auto;
 
-        @include tablet { height: 780px; }
-        @include desktop { height: auto; }
+        @include desktop { 
+          height: auto; 
+        }
       }
 
       .swiper-slide {
-        height: 190px;
+        height: auto; // 컨텐츠에 맞게 자동 높이
+        display: flex;
+        flex-direction: column;
 
-        @include tablet { height: 340px; }
-        @include desktop { height: auto; }
+        @include tablet { 
+          height: auto; 
+        }
+        @include desktop { 
+          height: auto; 
+        }
+      }
+    }
+
+    // 페이지네이션 스타일
+    .swiper-pagination {
+      bottom: 8px !important;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+
+      @include desktop {
+        display: none;
+      }
+
+      .swiper-pagination-bullet {
+        width: 8px;
+        height: 8px;
+        background-color: #d1d5db;
+        opacity: 1;
+        border-radius: 50%;
+        transition: all 0.2s ease;
+
+        &-active {
+          background-color: #045CF3;
+          width: 20px;
+          border-radius: 4px;
+        }
       }
     }
 
     .swiper-button-next,
     .swiper-button-prev {
       border-radius: 100%;
-      background-color: transparent;
+      background-color: rgba(255, 255, 255, 0.9);
       width: 40px;
       height: 40px;
       color: #000;
-      display: none;
+      display: none; // 모바일에서 기본적으로 숨김
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      opacity: 1;
+      visibility: visible;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      transition: all 0.3s ease;
+
+      // 데스크톱에서만 표시
+      @include desktop {
+        display: flex;
+      }
 
       &:after {
         display: none;
       }
 
-      @include qhd {
-        display: flex;
+      svg {
+        width: 20px;
+        height: 20px;
+        display: block;
+      }
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 1);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      &.swiper-button-disabled {
+        opacity: 0.35;
+        cursor: auto;
+        pointer-events: none;
       }
     }
 
     .swiper-button-next {
-      right: -60px;
+      right: 10px;
+
+      @include desktop {
+        right: -60px;
+      }
 
       svg {
         margin-left: 3px;
@@ -104,7 +181,11 @@
     }
 
     .swiper-button-prev {
-      left: -60px;
+      left: 10px;
+
+      @include desktop {
+        left: -60px;
+      }
 
       svg {
         margin-right: 3px;

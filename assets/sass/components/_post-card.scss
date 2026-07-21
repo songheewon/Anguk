@@ -60,6 +60,8 @@
     letter-spacing: -1px;
     text-align: left;
     line-height: 25px;
+    word-break: break-word;
+    overflow-wrap: break-word;
     @include ellipsis(2);
   }
 

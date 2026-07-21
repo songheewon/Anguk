@@ -11,10 +11,13 @@
 
   > * {
     min-width: 100%;
+    margin-top: 0;
+    margin-bottom: 0;
   }
 
+  // 기본: 요소 간 위아래 30px
   > * + * {
-    margin-top: $space-24;
+    margin-top: 30px;
   }
 
   a {
@@ -40,76 +43,68 @@
     line-height: $type-md-lh;
   }
 
-  hr {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    bottom: $space-4;
-    margin-bottom: 0;
-
-    &:before {
-      content: '. . .';
-      color: var(--color-text-primary);
-    }
-  }
-
+  // 소제목: 위 30px, 아래 20px
   h1, h2, h3, h4, h5, h6 {
-    margin-top: $space-40;
+    margin-top: 30px;
+    margin-bottom: 0;
     letter-spacing: - $global-letter-spacing;
 
     &:first-child {
       margin-top: 0;
     }
 
+    + *:not(hr) {
+      margin-top: 20px;
+    }
+  }
+
+  // 구분선: 위아래 40px
+  hr {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-top: 40px;
+    margin-bottom: 40px;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &:before {
+      content: '. . .';
+      color: var(--color-text-primary);
+    }
+
+    // 다음 요소의 기본 30px과 겹치지 않도록
     + * {
-      margin-top: $space-8;
+      margin-top: 0;
     }
   }
 
   h1 {
     font-size: $type--h-sm;
     line-height: $type--h-sm-lh;
-
-    + h2, + h3, + h4, + h5, + h6 {
-      margin-top: $space-16;
-    }
   }
 
   h2 {
     font-size: $type--h-xs;
     line-height: $type--h-xs-lh;
-
-    + h3, + h4, + h5, + h6 {
-      margin-top: $space-16;
-    }
   }
 
   h3 {
     font-size: $type--h-xxs;
     line-height: $type--h-xxs-lh;
-
-    + h4, + h5, + h6 {
-      margin-top: $space-16;
-    }
   }
 
   h4 {
     font-size: $type--h-xxs;
     line-height: $type--h-xxs-lh;
-
-    + h5, + h6 {
-      margin-top: $space-8;
-    }
   }
 
   h5 {
     font-size: $type--h-xxxs;
     line-height: $type--h-xxxs-lh;
-
-    + h6 {
-      margin-top: $space-8;
-    }
   }
 
   dd, ol, ul {
@@ -124,6 +119,19 @@
     &:not(:root:root) {
       -webkit-padding-start: $space-8 + $space-4;
     }
+  }
+
+  // 이미지와 캡션 사이 20px
+  figure,
+  .kg-card {
+    figcaption {
+      margin-top: 20px;
+    }
+  }
+
+  img + figcaption,
+  .kg-image + figcaption {
+    margin-top: 20px;
   }
 
   // Hide Ghost built-in upgrade call to action box

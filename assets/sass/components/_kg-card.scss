@@ -24,12 +24,12 @@
 .kg-card figcaption {
   width: 100%;
   text-align: center;
-  padding: $space-16;
+  margin-top: 20px;
+  padding: 0;
   font-size: $type-xs;
   line-height: $type-xs-lh;
   font-weight: $type-500;
   color: var(--color-text-secondary);
-  background-color: var(--background-primary);
 }
 
 .kg-image-card {

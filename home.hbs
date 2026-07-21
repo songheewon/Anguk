@@ -291,16 +291,8 @@
     {{/get}}
     {{/if}}
 
-    {{!-- {{> shop-slide }} --}}
-
     {{#if @site.home_visible_shop_section}}
-    <div class="c-home-products-carousel">
-      <div class="o-grid">
-        <div class="o-grid__col o-grid__col--full">
-          {{> common/products/carousel-section which="home" nav="true" title=@site.shop_section_title }}
-        </div>
-      </div>
-    </div>
+    {{> shop }}
     {{/if}}
 
     </div>
